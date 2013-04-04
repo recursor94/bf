@@ -3,7 +3,7 @@
 
 (declare begin-loop end-loop)
 
-(def cells (atom (vec (repeat 3000 0))))
+(def cells (atom (vec (repeat 9001 0))))
 
 (def pointer (atom 0))
 
