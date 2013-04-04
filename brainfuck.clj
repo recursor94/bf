@@ -44,7 +44,7 @@
   (println (char (@cells @pointer))))
 
 (defn begin-loop
-  []
+  [pointer-position]
   "([) loop until the end character (]) is reached")
 
 (defn exec-instruction
