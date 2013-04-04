@@ -1,6 +1,6 @@
 ;;;This is an interpreter for the brainfuck programming language written in
 ;;;clojure.  I tried to abstract out as much functionality as I could
-;;;into compact functions with a single specific purpose.  Not everything in
+;;;into compact functions with specific purposes.  Not everything in
 ;;:this code may be entirely idiomatic.
 ;;Andrew Spano
 
