@@ -9,7 +9,7 @@
 
 (def cells (atom (vec (repeat 9001 0)))) ;a lazy vector to represent the brainfuck memory cell.
 
-(def pointer (atom 0))  ;;the mutable pointer that will 
+(def pointer (atom 0))  ;;the mutable pointer which points to the current active memory cell
 
 (defn plus
   "(+) Increments current memory cell"
