@@ -54,5 +54,4 @@
     \. (output-character)
     \, (input-character)
     \[ (begin-loop)
-    \] (end-loop)
-    ))
+    \] (end-loop)))
