@@ -44,8 +44,8 @@
   (println (char (@cells @pointer))))
 
 (defn begin-loop
-  [pointer-position]
-  "([) loop until the end character (]) is reached")
+  "([) loop until the end character (]) is reached"
+    [pointer-position])
 
 (defn exec-instruction
   "performs the appropriate brainfuck operation for an instruction"
