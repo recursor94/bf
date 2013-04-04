@@ -45,7 +45,7 @@
 
 (defn begin-loop
   "([) loop until the end character (]) is reached"
-    [pointer-position] ;;pointer position needs to be a unique pointer to the memory cell which holds the value of the loop counter.
+    [pointer-position] ;pointer position needs to be a unique pointer to the memory cell which holds the value of the loop counter.
     (let [loop-counter (@cells pointer-position)]))
 
 (defn exec-instruction
