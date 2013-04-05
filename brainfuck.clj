@@ -11,7 +11,7 @@
 
 (def codemap
   "The map of the brainfuck code containing the code pointer index and its structure"
-  (ref {:struct [] :index 0})) ;;using vector in the map
+  (atom {:struct [] :index 0})) ;;using vector in the map
 
 (defn plus
   "(+) Increments current memory cell"
@@ -67,8 +67,12 @@
 (defn add-instruction
   "adds an additional instruction to the codemap"
   [operation]
-  (let [codevec (@codemap :struct)]
-    (swap! codemap :struct (assoc codevec (count codevec) operation))))
+  (let [_ (println "ok")
+        codevec '(@codemap :struct) ;doesn't work for some reason
+        length (count (@codemap :struct))]
+    (println length)  ;;HOLY MEATBALL WAY TOO COMPLICATED CORRECT IN THE FUTURE
+    (reset! codemap (assoc-in @codemap [:struct]
+                       (assoc (@codemap :struct) length operation)))))
 
 
 ;;parser function for input
