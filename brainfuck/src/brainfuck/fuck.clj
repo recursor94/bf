@@ -66,18 +66,20 @@
     \. #'output-character
     \, #'input-character
     \[ #'begin-loop
-    \] #'end-loop))
+    \] #'end-loop
+    true))
 
 
 (defn add-instruction
   "adds an additional instruction to the codemap"
   [operation]
-  (let [_ (println "ok")
-        codevec '(@codemap :struct) ;doesn't work for some reason
-        length (count (@codemap :struct))]
-    (println length)  ;;HOLY MEATBALL WAY TOO COMPLICATED CORRECT IN THE FUTURE
-    (reset! codemap (assoc-in @codemap [:struct]
-                       (assoc (@codemap :struct) length operation)))))
+  (when (clojure.test/function? operation)
+    (let [_ (println "ok")
+          codevec '(@codemap :struct) ;doesn't work for some reason
+          length (count (@codemap :struct))]
+      (println length) ;HOLY MEATBALL WAY TOO COMPLICATED CORRECT IN THE FUTURE
+      (reset! codemap (assoc-in @codemap [:struct]
+                         (assoc (@codemap :struct) length operation))))))
 
 
 ;;parser function for input should link translate and add-instruction
