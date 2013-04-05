@@ -69,4 +69,7 @@
 (defn parse-input
   "acts as the interpreter--mapping exec-instruction over every instruction"
   [input]
-  (apply exec-instruction input))
+  ;;higher order functions are wonky here, since they insist on returning new
+  ;;sequences.  use doseq for iteration instead
+  (doseq [x input]
+    (exec-instruction x)))
