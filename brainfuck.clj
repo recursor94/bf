@@ -54,14 +54,14 @@
 
 (defn translate-instruction
   "returns the appropriate brainfuck operation for an instruction"
-  ([instruction] ;;optional parameter for codeblock
-     (condp = instruction
-       \+ (plus)
-       \- (minus)
-       \> (+pointer)
-       \< (-pointer)
-       \. (output-character)
-       \, (input-character))))
+  [instruction] ;;optional parameter for codeblock
+  (condp = instruction
+    \+ #'plus
+    \- #'minus
+    \> #'+pointer
+    \< #'-pointer
+    \. #'output-character
+    \, #'input-character))
 
 ;;parser function for input
 (defn parse-input
