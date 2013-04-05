@@ -68,11 +68,4 @@
   [input]
   ;;higher order functions are wonky here, since they insist on returning new
   ;;sequences.  use doseq or loop for iteration instead
-  (loop [n 1]
-    (doseq [x input]
-      (if (= x \[)
-        (let [loop-to-end (subs input n)
-              end-loop (subs loop-to-end (.indexOf loop-to-end "]"))]
-          (exec-instruction x end-loop))
-       (exec-instruction x)))
-    (recur (inc n))))
+)
