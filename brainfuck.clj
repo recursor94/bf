@@ -11,7 +11,7 @@
 
 (def codemap
   "The map of the brainfuck code containing the code pointer index and its structure"
-  {:struct nil :index 0})
+  (atom {:struct [] :index 0})) ;;using vector in the map
 
 (defn plus
   "(+) Increments current memory cell"
@@ -71,10 +71,4 @@
   [input]
   ;;higher order functions are wonky here, since they insist on returning new
   ;;sequences.  use doseq or loop for iteration instead
-  (loop [code-position (atom 0)]
-    (doseq [instruct input]
-      (if (= instruct \[)
-        (exec-instruction instruct code-position)
-        ;else
-        (exec-instruction instruct)))
-    (recur (inc code-position))))
+  ())
