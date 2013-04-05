@@ -11,7 +11,7 @@
 
 (def codemap
   "The map of the brainfuck code containing the code pointer index and its structure"
-  (atom {:struct [] :index 0})) ;;using vector in the map
+  (ref {:struct [] :index 0})) ;;using vector in the map
 
 (defn plus
   "(+) Increments current memory cell"
