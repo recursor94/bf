@@ -43,12 +43,13 @@
   []
   (println (char (@cells @pointer))))
 
+;;going to risk some mutual recursion now
 (defn begin-loop
   "([) loop until the end character (]) is reached"
     [pointer-position] ;pointer position needs to be a unique pointer to the memory cell which holds the value of the loop counter.
     (loop [loop-counter (@cells pointer-position)]
       (if (zero? loop-counter)
-        (comment (println "loop is done"))
+        (reset! pointer pointer-position)
         ;else
         (recur (dec loop-counter)))))
 
