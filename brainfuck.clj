@@ -7,7 +7,7 @@
 
 (declare begin-loop end-loop) ;;declare the functions up here to be called where needed. The only reason this line is here is because the looping functions are not.
 
-(def cells (atom (vec (repeat 9001 0)))) ;a lazy vector to represent the brainfuck memory cell.
+(def cells (atom (vec (repeat 10 0)))) ;a lazy vector to represent the brainfuck memory cell.
 
 (def pointer (atom 0))  ;;the mutable pointer which points to the current active memory cell
 
