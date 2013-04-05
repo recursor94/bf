@@ -53,15 +53,17 @@
         ;else
         (recur (dec loop-counter)))))
 
-    (defn exec-instruction
-      "performs the appropriate brainfuck operation for an instruction"
-      [instruction]
-      (condp = instruction
-        \+ (plus)
-        \- (minus)
-        \> (+pointer)
-        \< (-pointer)
-        \. (output-character)
-        \, (input-character)
-        \[ (begin-loop)
-        \] (end-loop)))
+(defn exec-instruction
+  "performs the appropriate brainfuck operation for an instruction"
+  [instruction]
+  (condp = instruction
+    \+ (plus)
+    \- (minus)
+    \> (+pointer)
+    \< (-pointer)
+    \. (output-character)
+    \, (input-character)
+    \[ (begin-loop)
+    \] (end-loop)))
+;;parser function for input
+
