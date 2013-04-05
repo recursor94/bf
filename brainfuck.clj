@@ -63,6 +63,13 @@
     \. #'output-character
     \, #'input-character))
 
+
+(defn add-instruction
+  "adds an additional instruction to the codemap"
+  [operation]
+  )
+
+
 ;;parser function for input
 (defn parse-input
   "takes input and stores it in the code map data structure"
