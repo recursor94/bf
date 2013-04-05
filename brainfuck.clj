@@ -46,17 +46,21 @@
 (defn begin-loop
   "([) loop until the end character (]) is reached"
     [pointer-position] ;pointer position needs to be a unique pointer to the memory cell which holds the value of the loop counter.
-    (loop [loop-counter (@cells pointer-position)]))
+    (loop [loop-counter (@cells pointer-position)]
+      (if (zero? loop-counter)
+        (comment (println "loop is done"))
+        ;else
+        (recur (dec loop-counter)))))
 
-(defn exec-instruction
-  "performs the appropriate brainfuck operation for an instruction"
-  [instruction]
-  (condp = instruction
-    \+ (plus)
-    \- (minus)
-    \> (+pointer)
-    \< (-pointer)
-    \. (output-character)
-    \, (input-character)
-    \[ (begin-loop)
-    \] (end-loop)))
+    (defn exec-instruction
+      "performs the appropriate brainfuck operation for an instruction"
+      [instruction]
+      (condp = instruction
+        \+ (plus)
+        \- (minus)
+        \> (+pointer)
+        \< (-pointer)
+        \. (output-character)
+        \, (input-character)
+        \[ (begin-loop)
+        \] (end-loop)))
