@@ -3,7 +3,7 @@
 ;;;into compact functions with specific purposes.  Not everything in
 ;;:this code may be entirely idiomatic.
 ;;Andrew Spano
-
+(declare begin-loop end-loop)
 
 (def cells (atom (vec (repeat 10 0)))) ;a lazy vector to represent the brainfuck memory cell.
 
@@ -52,8 +52,8 @@
   (loop [loop-counter (@cells @pointer)]
     (ex)))
 
-(defn exec-instruction
-  "performs the appropriate brainfuck operation for an instruction"
+(defn translate-instruction
+  "returns the appropriate brainfuck operation for an instruction"
   ([instruction] ;;optional parameter for codeblock
      (condp = instruction
        \+ (plus)
@@ -61,14 +61,13 @@
        \> (+pointer)
        \< (-pointer)
        \. (output-character)
-       \, (input-character)))
-  ([instruction code-position]
-     (begin-loop code-position)))
+       \, (input-character))))
 
 ;;parser function for input
 (defn parse-input
-  "acts as the interpreter--mapping exec-instruction over every instruction"
+  "takes input and stores it in the code map data structure"
   [input]
   ;;higher order functions are wonky here, since they insist on returning new
   ;;sequences.  use doseq or loop for iteration instead
-  ())
+  (let [codevec (codemap :struct)]
+    (doseq )))
