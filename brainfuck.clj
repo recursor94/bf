@@ -68,4 +68,6 @@
   [input]
   ;;higher order functions are wonky here, since they insist on returning new
   ;;sequences.  use doseq or loop for iteration instead
-)
+  (loop [code-position (atom 0)]
+    (doseq [instruct input]
+      )))
