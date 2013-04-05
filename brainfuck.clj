@@ -46,10 +46,9 @@
 ;;going to risk some mutual recursion now
 (defn begin-loop
   "run through a loop until current cell drops to zero"
-  [position]
-  (loop [loop-counter (@cells @pointer)
-         start-place position]
-    (if (=))))
+  [codeblock]
+  (println codeblock) ;;for now I just want to see what the codeblock looks like
+  )
 
 (defn exec-instruction
   "performs the appropriate brainfuck operation for an instruction"
@@ -73,6 +72,8 @@
   (loop [n 1]
     (doseq [x input]
       (if (= x \[)
-        (exec-instruction x (subs n (.indexOf \])))
+        (let [loop-to-end (subs input n)
+              end-loop (subs loop-to-end (.indexOf loop-to-end \]))]
+          (exec-instruction x (subs input n (.indexOf input \]))))
        (exec-instruction x)))
     (recur (inc n))))
