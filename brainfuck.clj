@@ -5,8 +5,6 @@
 ;;Andrew Spano
 
 
-(declare begin-loop) ;;declare the functions up here to be called where needed. The only reason this line is here is because the looping functions are not.
-
 (def cells (atom (vec (repeat 10 0)))) ;a lazy vector to represent the brainfuck memory cell.
 
 (def pointer (atom 0))  ;;the mutable pointer which points to the current active memory cell
@@ -52,15 +50,16 @@
 
 (defn exec-instruction
   "performs the appropriate brainfuck operation for an instruction"
-  [instruction & codeblock] ;;optional parameter for codeblock
-  (condp = instruction
-    \+ (plus)
-    \- (minus)
-    \> (+pointer)
-    \< (-pointer)
-    \. (output-character)
-    \, (input-character)
-    \[ (begin-loop codeblock)))
+  ([instruction] ;;optional parameter for codeblock
+     (condp = instruction
+       \+ (plus)
+       \- (minus)
+       \> (+pointer)
+       \< (-pointer)
+       \. (output-character)
+       \, (input-character)))
+  ([instruction code-position]
+     (begin-loop code-position)))
 
 ;;parser function for input
 (defn parse-input
@@ -70,4 +69,8 @@
   ;;sequences.  use doseq or loop for iteration instead
   (loop [code-position (atom 0)]
     (doseq [instruct input]
-      )))
+      (if (= instruct \[)
+        (exec-instruction instruct code-position)
+        ;else
+        (exec-instruction instruct)))
+    (recur (inc code-position))))
