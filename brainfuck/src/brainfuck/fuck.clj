@@ -3,7 +3,7 @@
 ;;;into compact functions with specific purposes.  Not everything in
 ;;:this code may be entirely idiomatic.
 ;;Andrew Spano
-(ns brainfuck
+(ns brainfuck.fuck
   (:gen-class))
 
 (declare begin-loop end-loop)
