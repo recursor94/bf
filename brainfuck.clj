@@ -66,4 +66,7 @@
     \[ (begin-loop)
     \] (end-loop)))
 ;;parser function for input
-
+(defn parse-input
+  "acts as the interpreter--mapping exec-instruction over every instruction"
+  [input]
+  (apply exec-instruction input))
