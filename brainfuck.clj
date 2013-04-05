@@ -86,3 +86,8 @@
   [input]
   (doseq [instruct input]
     (add-instruction (translate-instruction instruct))))
+
+(defn -main []
+  (println "Andrew's brainfuck interpreter"
+           "Enter a brainfuck expression for evaluation")
+  (parse-input (read-line)))
