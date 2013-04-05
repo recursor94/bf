@@ -67,7 +67,8 @@
 (defn add-instruction
   "adds an additional instruction to the codemap"
   [operation]
-  )
+  (let [codevec (@codemap :struct)]
+    (swap! codemap :struct (assoc codevec (count codevec) operation))))
 
 
 ;;parser function for input
