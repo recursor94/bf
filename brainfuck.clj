@@ -44,18 +44,13 @@
   (println (char (@cells @pointer))))
 
 ;;going to risk some mutual recursion now
-(defn begin-loop
-  "([) loop until the end character (]) is reached"
-    [pointer-position] ;pointer position needs to be a unique pointer to the memory cell which holds the value of the loop counter.
-    (loop [loop-counter (@cells pointer-position)]
-      (if (zero? loop-counter)
-        (reset! pointer pointer-position)
-        ;else
-        (recur (dec loop-counter)))))
+(defn bf-loop
+  "run through a loop until current cell runs out"
+  )
 
 (defn exec-instruction
   "performs the appropriate brainfuck operation for an instruction"
-  [instruction]
+  [instruction position]
   (condp = instruction
     \+ (plus)
     \- (minus)
@@ -63,13 +58,15 @@
     \< (-pointer)
     \. (output-character)
     \, (input-character)
-    \[ (begin-loop)
-    \] (end-loop)))
+    \[ (begin-loop position)
+    \] (end-loop position)))
 ;;parser function for input
 (defn parse-input
   "acts as the interpreter--mapping exec-instruction over every instruction"
   [input]
   ;;higher order functions are wonky here, since they insist on returning new
-  ;;sequences.  use doseq for iteration instead
-  (doseq [x input]
-    (exec-instruction x)))
+  ;;sequences.  use doseq or loop for iteration instead
+  (loop [position 0]
+    (doseq [x input]
+      (exec-instruction x position))
+    (recur (inc position))))
