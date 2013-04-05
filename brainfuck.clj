@@ -5,7 +5,7 @@
 ;;Andrew Spano
 
 
-(declare begin-loop end-loop) ;;declare the functions up here to be called where needed. The only reason this line is here is because the looping functions are not.
+(declare begin-loop) ;;declare the functions up here to be called where needed. The only reason this line is here is because the looping functions are not.
 
 (def cells (atom (vec (repeat 10 0)))) ;a lazy vector to represent the brainfuck memory cell.
 
@@ -60,8 +60,7 @@
     \< (-pointer)
     \. (output-character)
     \, (input-character)
-    \[ (begin-loop codeblock)
-    \] (end-loop codeblock)))
+    \[ (begin-loop codeblock)))
 
 ;;parser function for input
 (defn parse-input
@@ -73,7 +72,7 @@
     (doseq [x input]
       (if (= x \[)
         (let [loop-to-end (subs input n)
-              end-loop (subs loop-to-end (.indexOf loop-to-end \]))]
-          (exec-instruction x (subs input n (.indexOf input \]))))
+              end-loop (subs loop-to-end (.indexOf loop-to-end "]"))]
+          (exec-instruction x end-loop))
        (exec-instruction x)))
     (recur (inc n))))
