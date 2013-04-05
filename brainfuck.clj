@@ -45,8 +45,8 @@
 
 ;;going to risk some mutual recursion now
 (defn bf-loop
-  "run through a loop until current cell runs out"
-  )
+  "run through a loop until current cell drops to zero"
+  [])
 
 (defn exec-instruction
   "performs the appropriate brainfuck operation for an instruction"
