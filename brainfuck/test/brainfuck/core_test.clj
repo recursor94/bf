@@ -1,6 +1,6 @@
 (ns brainfuck.core-test
   (:use clojure.test
-        brainfuck.core))
+        brainfuck.fuck))
 
 (deftest a-test
   (testing "FIXME, I fail."
