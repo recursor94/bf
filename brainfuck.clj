@@ -9,6 +9,10 @@
 
 (def pointer (atom 0))  ;;the mutable pointer which points to the current active memory cell
 
+(def codemap
+  "The map of the brainfuck code containing the code pointer index and its structure"
+  {:struct nil :index 0})
+
 (defn plus
   "(+) Increments current memory cell"
   []
@@ -44,9 +48,9 @@
 ;;going to risk some mutual recursion now
 (defn begin-loop
   "run through a loop until current cell drops to zero"
-  [codeblock]
-  (println codeblock) ;;for now I just want to see what the codeblock looks like
-  )
+  [code-position]
+  (loop [loop-counter (@cells @pointer)]
+    (ex)))
 
 (defn exec-instruction
   "performs the appropriate brainfuck operation for an instruction"
