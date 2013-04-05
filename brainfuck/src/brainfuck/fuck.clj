@@ -8,7 +8,7 @@
 
 (declare begin-loop end-loop)
 
-(def cells (atom (vec (repeat 10 0)))) ;a lazy vector to represent the brainfuck memory cell.
+(def cells (atom (vec (repeat 9001 0)))) ;a lazy vector to represent the brainfuck memory cell.
 
 (def pointer (atom 0))  ;;the mutable pointer which points to the current active memory cell
 
@@ -73,10 +73,8 @@
 (defn add-instruction
   "adds an additional instruction to the codemap"
   [operation]
-  (when (clojure.test/function? operation)
-    (let [_ (println "ok")
-          codevec '(@codemap :struct) ;doesn't work for some reason
-          length (count (@codemap :struct))]
+  (when (var? operation)
+    (let [length (count (@codemap :struct))]
       (println length) ;HOLY MEATBALL WAY TOO COMPLICATED CORRECT IN THE FUTURE
       (reset! codemap (assoc-in @codemap [:struct]
                          (assoc (@codemap :struct) length operation))))))
