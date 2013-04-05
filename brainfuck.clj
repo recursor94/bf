@@ -44,13 +44,16 @@
   (println (char (@cells @pointer))))
 
 ;;going to risk some mutual recursion now
-(defn bf-loop
+(defn begin-loop
   "run through a loop until current cell drops to zero"
-  [])
+  [position]
+  (loop [loop-counter (@cells @pointer)
+         start-place position]
+    (if (=))))
 
 (defn exec-instruction
   "performs the appropriate brainfuck operation for an instruction"
-  [instruction position]
+  [instruction & codeblock] ;;optional parameter for codeblock
   (condp = instruction
     \+ (plus)
     \- (minus)
@@ -58,15 +61,18 @@
     \< (-pointer)
     \. (output-character)
     \, (input-character)
-    \[ (begin-loop position)
-    \] (end-loop position)))
+    \[ (begin-loop codeblock)
+    \] (end-loop codeblock)))
+
 ;;parser function for input
 (defn parse-input
   "acts as the interpreter--mapping exec-instruction over every instruction"
   [input]
   ;;higher order functions are wonky here, since they insist on returning new
   ;;sequences.  use doseq or loop for iteration instead
-  (loop [position 0]
+  (loop [n 1]
     (doseq [x input]
-      (exec-instruction x position))
-    (recur (inc position))))
+      (if (= x \[)
+        (exec-instruction x (subs n (.indexOf \])))
+       (exec-instruction x)))
+    (recur (inc n))))
