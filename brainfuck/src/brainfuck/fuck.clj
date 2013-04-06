@@ -18,6 +18,11 @@
 index holds the current position of the interpreter in its execution."
   (atom {:struct [] :index 0})) ;;using vector in the map
 
+(defn reset-instructions
+  "resets the current brainfuck map"
+  []
+  (swap! codemap assoc :struct [] ))
+
 (defn plus
   "(+) Increments current memory cell"
   []
@@ -138,5 +143,6 @@ index holds the current position of the interpreter in its execution."
     (flush)
     (parse-input (read-line))
     (exec-instruction)
+    (reset-instructions)
     (flush)
     (recur)))
