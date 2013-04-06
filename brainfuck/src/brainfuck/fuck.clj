@@ -136,7 +136,7 @@ index holds the current position of the interpreter in its execution."
          (inc-code-pos))))
 
 (defn -main []
-  (println "Andrew's brainfuck interpreter!"
+  (println "Andrew's brainfuck interpreter Version 0.01"
            "Enter a brainfuck expression for evaluation:\n")
   (loop []
       (print ">>> ")
@@ -144,5 +144,4 @@ index holds the current position of the interpreter in its execution."
     (parse-input (read-line))
     (exec-instruction)
     (reset-instructions)
-    (flush)
     (recur)))
