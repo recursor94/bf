@@ -65,25 +65,20 @@ index holds the current position of the interpreter in its execution."
   []
   (swap! codemap update-in [:index] dec))
 
+(defn find-end
+  "helper function for begin-loop. Find the end of the loop"
+  [code-position]
 
+  (loop [pos code-position]
+    (let [instruct ((@codemap :struct) pos)]x
+      (if (= instruct #'end-loop)
+        pos
+        ;else
+        (recur (inc pos))))))
 ;;going to risk some mutual recursion now
 (defn begin-loop
   "run through a loop until current cell drops to zero"
-  []
-
-  ;;This is the worst function I've ever seen
-  ;;I need to fix this.
-  (let [start-index (@codemap :index)]
-    (loop []
-      (let [loop-counter (@cells @pointer)
-            codevec (@codemap :struct)
-            index (@codemap :index)]
-        (if (> loop-counter 0)
-          (trampoline exec-instruction index))
-        (if (= (codevec index) #'end-loop)
-          (if (> loop-counter 0)
-            (set-code-pos (+ 1 start-index)))
-          (recur))))))
+  )
 
 (defn translate-instruction
   "returns the appropriate brainfuck operation for an instruction"
