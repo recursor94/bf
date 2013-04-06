@@ -106,7 +106,7 @@ index holds the current position of the interpreter in its execution."
   ([]
       (doseq [instruct (@codemap :struct)]
         (instruct) ;;higher order functions ftw
-        (swap! codemap update-in [:index] inc)))
+        (inc-code-pos)))
 
     ([end-index]
        (loop [index (:index @codemap)]
@@ -114,7 +114,7 @@ index holds the current position of the interpreter in its execution."
                    instruct (get codevec index)]
                (instruct))
              (when-not (= index (+ 1 end-index))
-               (swap! codemap update-in [:index] inc)
+               (inc-code-pos)
                (recur (inc index))))))
 
 (defn -main []
