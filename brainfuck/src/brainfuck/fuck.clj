@@ -48,7 +48,7 @@ index holds the current position of the interpreter in its execution."
 (defn input-character
   "(,) input a single character into the current memory cell"
   []
-  (reset! cells (assoc @cells @pointer (.read System/in))))
+  (reset! cells (assoc @cells @pointer (int (.read System/in)))))
 
 (defn output-character
   "(.) output the character in the current memory cell"
@@ -150,4 +150,4 @@ index holds the current position of the interpreter in its execution."
         (parse-input input)
         (exec-instruction)
         (reset-instructions)
-        (recur (input read-line))))))
+        (recur (read-line))))))
