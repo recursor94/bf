@@ -78,6 +78,7 @@ index holds the current position of the interpreter in its execution."
 ;;going to risk some mutual recursion now
 (defn begin-loop
   "run through a loop until current cell drops to zero"
+  
   )
 
 (defn translate-instruction
@@ -128,9 +129,6 @@ index holds the current position of the interpreter in its execution."
        (doseq [instruct (@codemap :struct)]
          (instruct) ;;higher order functions ftw
          (inc-code-pos))))
-
-(defn tramp [param]
-  (trampoline begin-loop exec-instruction))
 
 (defn -main []
   (println "Andrew's brainfuck interpreter!"
