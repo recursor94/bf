@@ -90,7 +90,8 @@ index holds the current position of the interpreter in its execution."
          pos (@codemap :index)]
     (println "cell counter:" loop-counter
              "other:"  (@cells @pointer)
-             "at 0:" (@cells @pointer))
+             "at 0:" (@cells @pointer)
+             "also:" end-loop)
     (exec-instruction end-loop)
     (when-not (= loop-counter 0)
       (recur (@cells @pointer) end-loop pos))))
@@ -132,13 +133,17 @@ index holds the current position of the interpreter in its execution."
 
 
     ([end-index]
+       (inc-code-pos)
        (loop [index (:index @codemap)]
-             (let [codevec (@codemap :struct)
-                   instruct (get codevec index)]
-               (instruct))
-             (when-not (= index (+ 1 end-index))
-               (inc-code-pos)
-               (recur (inc index)))))
+         (let [codevec (@codemap :struct)
+               instruct (get codevec index)]
+           (println "index:" index
+                    "instruct" :instruct)
+           (instruct))
+         (when-not (= index end-index)
+           (println "yeah you are")
+           (inc-code-pos)
+           (recur inc))))
     ([]
        (doseq [instruct (@codemap :struct)]
          (instruct) ;;higher order functions ftw
