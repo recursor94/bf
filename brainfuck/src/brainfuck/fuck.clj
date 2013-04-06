@@ -31,7 +31,7 @@ index holds the current position of the interpreter in its execution."
 (defn +pointer
   "(>) increment the data pointer (move one cell to the right)"
   []
-  (Swap! pointer inc))
+  (swap! pointer inc))
 
 
 (defn -pointer
@@ -67,7 +67,8 @@ index holds the current position of the interpreter in its execution."
 ;;going to risk some mutual recursion now
 (defn begin-loop
   "run through a loop until current cell drops to zero"
-  [code-position])
+  [code-position]
+  (let [loop-counter (@mapcode :index)]))
 
 (defn translate-instruction
   "returns the appropriate brainfuck operation for an instruction"
