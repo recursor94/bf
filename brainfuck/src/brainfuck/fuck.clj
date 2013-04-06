@@ -53,7 +53,8 @@ index holds the current position of the interpreter in its execution."
 (defn output-character
   "(.) output the character in the current memory cell"
   []
-  (println (char (@cells @pointer))))
+  (println (char (@cells @pointer)))
+  (flush))
 
 (defn set-code-pos
   "sets the postion of the code pointer"
@@ -144,10 +145,12 @@ index holds the current position of the interpreter in its execution."
   (print ">>> ")
   (flush)
   (loop [input (read-line)]
+    (flush)
     (print ">>> ")
     (if input
       (do
         (parse-input input)
         (exec-instruction)
         (reset-instructions)
+        (flush)
         (recur (read-line))))))
