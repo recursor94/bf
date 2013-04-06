@@ -90,10 +90,18 @@ index holds the current position of the interpreter in its execution."
 
 (defn exec-instruction
   "executes each function in the codemap vector in sequential order"
-  []
-  (doseq [instruct (@codemap :struct)]
-    (instruct) ;;higher order functions ftw
-    (swap! codemap update-in [:index] inc)))
+  ([]
+      (doseq [instruct (@codemap :struct)]
+        (instruct) ;;higher order functions ftw
+        (swap! codemap update-in [:index] inc)))
+
+    ([end-index]
+       (let [index (@codemap :index)
+             codevec (@codemap :struct)]
+         (loop  [instruct (nth codevec index)]
+           (instruct)
+           (if-not (= index (+ 1 end-index))
+             (recur (inc index)))))))
 
 (defn -main []
   (println "Andrew's brainfuck interpreter!"
