@@ -87,7 +87,15 @@ index holds the current position of the interpreter in its execution."
   (doseq [instruct input]
     (add-instruction (translate-instruction instruct))))
 
+
+(defn exec-instruction
+  "executes each function in the codemap vector in sequential order"
+  []
+  (doseq [instruct (@codemap :struct)]
+    (instruct) ;;higher order functions ftw
+    (swap! codemap update-in [:index] inc)))
+
 (defn -main []
-  (println "Andrew's brainfuck interpreter"
+  (println "Andrew's brainfuck interpreter!"
            "Enter a brainfuck expression for evaluation")
   (parse-input (read-line)))
