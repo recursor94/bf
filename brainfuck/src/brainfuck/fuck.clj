@@ -85,8 +85,12 @@ index holds the current position of the interpreter in its execution."
 (defn begin-loop
   "run through a loop until current cell drops to zero"
   []
-  (let [loop-counter 3])
-  )
+  (loop [loop-counter (@cells @pointer)
+         end-loop (find-end (@codemap :index))
+         pos (@codemap :index)]
+    (exec-instruction end-loop)
+    (when-not (= loop-counter 0)
+      (recur loop-counter end-loop pos))))
 
 (defn translate-instruction
   "returns the appropriate brainfuck operation for an instruction"
