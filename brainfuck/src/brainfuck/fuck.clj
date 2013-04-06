@@ -83,7 +83,8 @@ index holds the current position of the interpreter in its execution."
 ;;going to risk some mutual recursion now
 (defn begin-loop
   "run through a loop until current cell drops to zero"
-  
+  []
+  (let [loop-counter 3])
   )
 
 (defn translate-instruction
@@ -138,10 +139,15 @@ index holds the current position of the interpreter in its execution."
 (defn -main []
   (println "Andrew's brainfuck interpreter Version 0.01"
            "Enter a brainfuck expression for evaluation:\n")
-  (loop []
-      (print ">>> ")
-    (flush)
-    (parse-input (read-line))
-    (exec-instruction)
-    (reset-instructions)
-    (recur)))
+
+  ;;horribly redundant. Fix later
+  (print ">>> ")
+  (flush)
+  (loop [input (read-line)]
+    (print ">>> ")
+    (if input
+      (do
+        (parse-input input)
+        (exec-instruction)
+        (reset-instructions)
+        (recur (input read-line))))))
