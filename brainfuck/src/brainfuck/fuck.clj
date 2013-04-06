@@ -137,9 +137,10 @@ index holds the current position of the interpreter in its execution."
          (let [codevec (@codemap :struct)
                instruct (get codevec index)]
            (println "index:" index
-                    "instruct" :instruct)
+                    "instruct" instruct
+                    "minus one index:" (- end-index 2))
            (instruct))
-         (when-not (= index end-index)
+         (when-not (= index (- end-index 1))
            (println "yeah you are")
            (inc-code-pos)
            (recur (inc index)))))
