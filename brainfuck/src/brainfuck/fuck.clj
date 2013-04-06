@@ -1,3 +1,4 @@
+
 ;;;This is an interpreter for the brainfuck programming language written in
 ;;;clojure.  I tried to abstract out as much functionality as I could
 ;;;into compact functions with specific purposes.  Not everything in
@@ -6,7 +7,7 @@
 (ns brainfuck.fuck
   (:gen-class))
 
-(declare end-loop)
+(declare end-loop exec-instruction tramp)
 
 (def cells (atom (vec (repeat 9001 0)))) ;a lazy vector to represent the brainfuck memory cell.
 
@@ -64,11 +65,25 @@ index holds the current position of the interpreter in its execution."
   []
   (swap! codemap update-in [:index] dec))
 
+
 ;;going to risk some mutual recursion now
 (defn begin-loop
   "run through a loop until current cell drops to zero"
-  [code-position]
-  (let [loop-counter (@mapcode :index)]))
+  []
+
+  ;;This is the worst function I've ever seen
+  ;;I need to fix this.
+  (let [start-index (@codemap :index)]
+    (loop []
+      (let [loop-counter (@cells @pointer)
+            codevec (@codemap :struct)
+            index (@codemap :index)]
+        (if (> loop-counter 0)
+          (trampoline exec-instruction index))
+        (if (= (codevec index) #'end-loop)
+          (if (> loop-counter 0)
+            (set-code-pos (+ 1 start-index)))
+          (recur))))))
 
 (defn translate-instruction
   "returns the appropriate brainfuck operation for an instruction"
@@ -104,10 +119,7 @@ index holds the current position of the interpreter in its execution."
 
 (defn exec-instruction
   "executes each function in the codemap vector in sequential order"
-  ([]
-      (doseq [instruct (@codemap :struct)]
-        (instruct) ;;higher order functions ftw
-        (inc-code-pos)))
+
 
     ([end-index]
        (loop [index (:index @codemap)]
@@ -116,7 +128,14 @@ index holds the current position of the interpreter in its execution."
                (instruct))
              (when-not (= index (+ 1 end-index))
                (inc-code-pos)
-               (recur (inc index))))))
+               (recur (inc index)))))
+    ([]
+       (doseq [instruct (@codemap :struct)]
+         (instruct) ;;higher order functions ftw
+         (inc-code-pos))))
+
+(defn tramp [param]
+  (trampoline begin-loop exec-instruction))
 
 (defn -main []
   (println "Andrew's brainfuck interpreter!"
