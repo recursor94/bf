@@ -132,6 +132,11 @@ index holds the current position of the interpreter in its execution."
 
 (defn -main []
   (println "Andrew's brainfuck interpreter!"
-           "Enter a brainfuck expression for evaluation:\n>>>")
-  (parse-input (read-string))
-  (exec-instruction))
+           "Enter a brainfuck expression for evaluation:\n")
+  (loop []
+      (print ">>> ")
+    (flush)
+    (parse-input (read-line))
+    (exec-instruction)
+    (flush)
+    (recur)))
