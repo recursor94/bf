@@ -5,7 +5,7 @@
 ;;Andrew Spano
 (ns brainfuck.fuck
   (:gen-class))
-
+(use 'clojure.tools.trace)
 (declare end-loop exec-instruction tramp)
 
 (def cells (atom (vec (repeat 9001 0)))) ;a lazy vector to represent the brainfuck memory cell.
@@ -133,17 +133,18 @@ index holds the current position of the interpreter in its execution."
 
     ([end-index]
        (inc-code-pos)
-       (loop [index (:index @codemap)]
-         (let [codevec (@codemap :struct)
-               instruct (get codevec index)]
-           (println "index:" index
-                    "instruct" instruct
-                    "minus one index:" (- end-index 2))
-           (instruct))
-         (when-not (= index (- end-index 1))
-           (println "yeah you are")
-           (inc-code-pos)
-           (recur (inc index)))))
+       (trace
+        (loop [index (:index @codemap)]
+          (let [codevec (@codemap :struct)
+                instruct (get codevec index)]
+            (println "index:" index
+                     "instruct" instruct
+                     "minus one index:" (- end-index 2))
+            (instruct))
+          (when-not (= index (- end-index 1))
+            (println "yeah you are")
+            (inc-code-pos)
+            (recur (inc index))))))
     ([]
        (doseq [instruct (@codemap :struct)]
          (instruct) ;;higher order functions ftw
