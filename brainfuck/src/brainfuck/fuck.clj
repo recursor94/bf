@@ -6,7 +6,7 @@
 (ns brainfuck.fuck
   (:gen-class))
 
-(declare begin-loop end-loop)
+(declare end-loop)
 
 (def cells (atom (vec (repeat 9001 0)))) ;a lazy vector to represent the brainfuck memory cell.
 
