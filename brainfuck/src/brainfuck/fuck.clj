@@ -49,12 +49,25 @@ index holds the current position of the interpreter in its execution."
   []
   (println (char (@cells @pointer))))
 
+(defn set-code-pos
+  "sets the postion of the code pointer"
+  [pos]
+  (swap! codemap assoc-in [:index] pos))
+
+(defn inc-code-pos
+  "increments the poistion of the code pointer"
+  []
+  (swap! codemap update-in [:index] inc))
+
+(defn dec-code-pos
+  "decrements the position of the code pointer"
+  []
+  (swap! codemap update-in [:index] dec))
+
 ;;going to risk some mutual recursion now
 (defn begin-loop
   "run through a loop until current cell drops to zero"
-  [code-position]
-  (let [start-index code-position
-        end-index]))
+  [code-position])
 
 (defn translate-instruction
   "returns the appropriate brainfuck operation for an instruction"
