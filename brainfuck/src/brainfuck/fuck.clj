@@ -96,11 +96,12 @@ index holds the current position of the interpreter in its execution."
         (swap! codemap update-in [:index] inc)))
 
     ([end-index]
-       (loop [index (@codemap :index)]
+       (loop [index (:index @codemap)]
              (let [codevec (@codemap :struct)
-                   instruct (get codevec index)]
-               (if-not (= index (+1 end-index))
-                 (recur (inc index)))))))
+                   instruct (get codevec index)])
+             (when-not (= index (+ 1 end-index))
+               (swap! codemap update-in [:index] inc)
+               (recur (inc index))))))
 
 (defn -main []
   (println "Andrew's brainfuck interpreter!"
