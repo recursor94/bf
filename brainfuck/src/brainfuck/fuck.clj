@@ -31,7 +31,7 @@ index holds the current position of the interpreter in its execution."
 (defn +pointer
   "(>) increment the data pointer (move one cell to the right)"
   []
-  (swap! pointer inc))
+  (Swap! pointer inc))
 
 
 (defn -pointer
@@ -53,8 +53,8 @@ index holds the current position of the interpreter in its execution."
 (defn begin-loop
   "run through a loop until current cell drops to zero"
   [code-position]
-  (loop [loop-counter (@cells @pointer)]
-    ()))
+  (let [start-index code-position
+        end-index]))
 
 (defn translate-instruction
   "returns the appropriate brainfuck operation for an instruction"
@@ -98,7 +98,8 @@ index holds the current position of the interpreter in its execution."
     ([end-index]
        (loop [index (:index @codemap)]
              (let [codevec (@codemap :struct)
-                   instruct (get codevec index)])
+                   instruct (get codevec index)]
+               (instruct))
              (when-not (= index (+ 1 end-index))
                (swap! codemap update-in [:index] inc)
                (recur (inc index))))))
