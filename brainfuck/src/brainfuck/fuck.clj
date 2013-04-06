@@ -13,7 +13,8 @@
 (def pointer (atom 0))  ;;the mutable pointer which points to the current active memory cell
 
 (def codemap
-  "The map of the brainfuck code containing the code pointer index and its structure"
+  "The map of the brainfuck code containing the code pointer index and its structure  :struct holds a vector containing the functions to be executed.
+index holds the current position of the interpreter in its execution."
   (atom {:struct [] :index 0})) ;;using vector in the map
 
 (defn plus
