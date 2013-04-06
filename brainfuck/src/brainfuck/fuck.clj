@@ -75,9 +75,8 @@
   [operation]
   (when (var? operation)
     (let [length (count (@codemap :struct))]
-      (println length) ;HOLY MEATBALL WAY TOO COMPLICATED CORRECT IN THE FUTURE
       (reset! codemap (assoc-in @codemap [:struct]
-                         (assoc (@codemap :struct) length operation))))))
+                        (assoc (@codemap :struct) length operation))))))
 
 
 ;;parser function for input should link translate and add-instruction
