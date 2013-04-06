@@ -1,4 +1,3 @@
-
 ;;;This is an interpreter for the brainfuck programming language written in
 ;;;clojure.  I tried to abstract out as much functionality as I could
 ;;;into compact functions with specific purposes.  Not everything in
@@ -143,7 +142,7 @@ index holds the current position of the interpreter in its execution."
          (when-not (= index end-index)
            (println "yeah you are")
            (inc-code-pos)
-           (recur inc))))
+           (recur (inc index)))))
     ([]
        (doseq [instruct (@codemap :struct)]
          (instruct) ;;higher order functions ftw
