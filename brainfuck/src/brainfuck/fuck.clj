@@ -70,7 +70,7 @@ index holds the current position of the interpreter in its execution."
   [code-position]
 
   (loop [pos code-position]
-    (let [instruct ((@codemap :struct) pos)]x
+    (let [instruct ((@codemap :struct) pos)]
       (if (= instruct #'end-loop)
         pos
         ;else
