@@ -75,7 +75,24 @@ index holds the current position of the interpreter in its execution."
 ;;going to risk some mutual recursion now
 (defn begin-loop
   "run through a loop until current cell drops to zero"
-  [start-index])
+  []
+  (loop [loop-counter (@cells @pointer)
+         codevec (@codemap :struct)
+         start-index (@codemap :index)
+         _ (inc-code-pos)
+         instruct (codevec start-index)]
+    (println "loopcounter: " loop-counter
+             "instruction:" instruct)
+    (if (= instruct #'end-loop)
+      (do   
+        (println true)
+        (instruct start-index))
+      (do (println false)
+        (instruct)))
+    (when-not (> loop-counter 0)
+      (inc-code-pos)
+      (println "incremented" (codevec (@codemap :index)))
+      (recur loop-counter codevec start-index nil (codevec (@codemap :index))))))
 
 (defn end-loop
   "] set code pointer to start of loop"
@@ -116,10 +133,8 @@ index holds the current position of the interpreter in its execution."
 
 (defn exec-instruction
   "executes each function in the codemap vector in sequential order"
-  []
-   (doseq [instruct (@codemap :struct)]
-     (instruct) ;;higher order functions ftw
-     (inc-code-pos)))
+  [instruction]
+  (instruction))
 
 (defn -main []
   (println "Andrew's brainfuck interpreter Version 0.01"
