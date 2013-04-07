@@ -125,16 +125,17 @@ index holds the current position of the interpreter in its execution."
 
 ;;parser function for input should link translate and add-instruction
 (defn parse-input
-  "takes input and stores it in the code map data structure"
+  "takes input and sends each individual instruction to exec-instruction"
   [input]
-  (doseq [instruct input]
-    (add-instruction (translate-instruction instruct))))
+  (exec-instruction
+   (map translate-instruction input)))
 
 
 (defn exec-instruction
-  "executes each function in the codemap vector in sequential order"
-  [instruction]
-  (instruction))
+  "executes each brainfuck function in sequential order"
+  [instructions]
+  (doseq [instruct instructions]
+         (intruct)))
 
 (defn -main []
   (println "Andrew's brainfuck interpreter Version 0.01"
