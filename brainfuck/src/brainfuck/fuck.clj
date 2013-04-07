@@ -14,11 +14,6 @@
 
 (def pointer 0)  ;;the pointer which points to the current active memory cell
 
-(defn reset-instructions
-  "resets the current brainfuck map"
-  []
-  (swap! codemap assoc :struct [] ))
-
 (defn plus
   "(+) Increments current memory cell"
   []
@@ -51,22 +46,6 @@
   []
   (println (char (@cells @pointer)))
   (flush))
-
-(defn set-code-pos
-  "sets the postion of the code pointer"
-  [pos]
-  (swap! codemap assoc-in [:index] pos))
-
-(defn inc-code-pos
-  "increments the poistion of the code pointer"
-  []
-  (swap! codemap update-in [:index] inc))
-
-(defn dec-code-pos
-  "decrements the position of the code pointer"
-  []
-  (swap! codemap update-in [:index] dec))
-
 
 
 ;;going to risk some mutual recursion now
