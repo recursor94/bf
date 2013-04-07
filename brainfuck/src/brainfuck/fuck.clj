@@ -10,7 +10,7 @@
 
 (declare end-loop exec-instruction)
 
-(def cells ^{:dynamic true} (vec (repeat 300 0))) ;a lazy vector to represent the brainfuck memory cell.
+(def ^{:dynamic true} cells  (vec (repeat 300 0))) ;a lazy vector to represent the brainfuck memory cell.
 
 (def ^{:dynamic true} pointer 0) ;;the pointer which points to the current active memory cell
 
@@ -86,8 +86,20 @@
 
 (defn exec-operations
   "executes the operations and keeps track of data pointer"
-  [instructs] ;;maybe I don't even need the global vars at all?
-  (let [cells (vec)]))
+  [instructions] ;;maybe I don't even need the global vars at all?
+  (loop [instructs (vec instructions)
+         code-pos 0
+         op-type (:operation-type (meta (instructs code-pos)))
+         instruct (instructs code-pos)]
+         (binding [cells cells pointer pointer]
+           (println op-type)
+           (condp = op-type
+             :cell (set! cells (assoc  cells (instruct (cells pointer)) pointer))
+             :pointer (set! pointer (instruct pointer))
+             :io (set! cells (instruct (cells pointer) pointer))
+             :loop (instruct code-pos)
+             true)
+           (println cells))))
 
 
 ;;parser function for input should link translate and add-instruction
