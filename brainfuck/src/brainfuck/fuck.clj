@@ -55,7 +55,7 @@
 (defn end-loop
   "] set code pointer to start of loop"
   [start-index]
-  (set-code-pos start-index))
+  )
 
 (defn translate-instruction
   "returns the appropriate brainfuck operation for an instruction"
