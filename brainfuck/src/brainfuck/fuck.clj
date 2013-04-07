@@ -8,9 +8,9 @@
 (use 'clojure.tools.trace)
 (declare end-loop exec-instruction tramp)
 
-(def cells (atom (vec (repeat 9001 0)))) ;a lazy vector to represent the brainfuck memory cell.
+(def cells (vector (repeat 0))) ;a lazy vector to represent the brainfuck memory cell.
 
-(def pointer (atom 0))  ;;the mutable pointer which points to the current active memory cell
+(def pointer 0)  ;;the pointer which points to the current active memory cell
 
 (def codemap
   "The map of the brainfuck code containing the code pointer index and its structure  :struct holds a vector containing the functions to be executed.
