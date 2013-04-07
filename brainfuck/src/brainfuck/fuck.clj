@@ -5,8 +5,10 @@
 ;;Andrew Spano
 (ns brainfuck.fuck
   (:gen-class))
+
 (use 'clojure.tools.trace)
-(declare end-loop exec-instruction tramp)
+
+(declare end-loop exec-instruction)
 
 (def cells (vector (repeat 0))) ;a lazy vector to represent the brainfuck memory cell.
 
