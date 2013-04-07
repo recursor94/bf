@@ -78,8 +78,11 @@
 
 (defn exec-operations
   "executes the operations and keeps track of data pointer"
-  [instructs]
-  (binding [pointer pointer cells cells]))
+  [instructs] ;;maybe I don't even need the global vars at all?x
+  (loop [instructs (vec instructs)
+         code-pos 0
+         pointer pointer]
+    (println instructs)))
 
 
 ;;parser function for input should link translate and add-instruction
