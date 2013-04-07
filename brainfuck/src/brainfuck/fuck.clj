@@ -10,7 +10,7 @@
 
 (declare end-loop exec-instruction)
 
-(def cells (vec (repeat 300 0))) ;a lazy vector to represent the brainfuck memory cell.
+(def cells ^{:dynamic true} (vec (repeat 300 0))) ;a lazy vector to represent the brainfuck memory cell.
 
 (def ^{:dynamic true} pointer 0) ;;the pointer which points to the current active memory cell
 
@@ -79,11 +79,7 @@
 (defn exec-operations
   "executes the operations and keeps track of data pointer"
   [instructs]
-  (binding [pointer pointer]
-    (doseq [instruct instructs]
-      (exec-instruction instruct)
-      (set! pointer (+pointer))
-      (print pointer ", "))))
+  (binding [pointer pointer cells cells]))
 
 
 ;;parser function for input should link translate and add-instruction
