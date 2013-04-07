@@ -90,10 +90,16 @@ index holds the current position of the interpreter in its execution."
     (println "cell counter:" loop-counter
              "other:"  (@cells @pointer)
              "at 0:" (@cells @pointer)
-             "also:" end-loop)
-    (exec-instruction end)
+             "also:" end
+             "pos" pos)
+    (exec-instruction pos end)
     (when-not (= loop-counter 0)
-      (recur (@cells @pointer) end-loop pos))))
+      (recur (@cells @pointer) end pos))))
+
+(defn end-loop
+  "] set code pointer to start of loop"
+  [start-index]
+  (set-code-pos start-index))
 
 (defn translate-instruction
   "returns the appropriate brainfuck operation for an instruction"
@@ -129,25 +135,10 @@ index holds the current position of the interpreter in its execution."
 
 (defn exec-instruction
   "executes each function in the codemap vector in sequential order"
-
-
-  ([end-index]
-       (inc-code-pos)
-       (loop [index (:index @codemap)]
-         (let [codevec (@codemap :struct)
-               instruct (get codevec index)]
-           (println "index:" index
-                    "instruct" instruct
-                    "minus one index:" (- end-index 2))
-           (instruct))
-         (when-not (>= index (dec end-index))
-           (println "yeah you are")
-           (inc-code-pos)
-           (recur (inc index)))))
-    ([]
-       (doseq [instruct (@codemap :struct)]
-         (instruct) ;;higher order functions ftw
-         (inc-code-pos))))
+[]
+   (doseq [instruct (@codemap :struct)]
+     (instruct) ;;higher order functions ftw
+     (inc-code-pos)))
 
 (defn -main []
   (println "Andrew's brainfuck interpreter Version 0.01"
