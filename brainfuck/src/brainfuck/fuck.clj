@@ -48,7 +48,7 @@
   (flush))
 
 (defn begin-loop
-  " [ run through a loop until current cell drops to zero"
+  "[ run through a loop until current cell drops to zero"
   []
   )
 
@@ -71,16 +71,6 @@
     \] #'end-loop
     true))
 
-
-(defn add-instruction
-  "adds an additional instruction to the codemap"
-  [operation]
-  (when (var? operation)
-    (let [length (count (@codemap :struct))]
-      (reset! codemap (assoc-in @codemap [:struct]
-                        (assoc (@codemap :struct) length operation))))))
-
-
 ;;parser function for input should link translate and add-instruction
 (defn parse-input
   "takes input and sends each individual instruction to exec-instruction"
@@ -98,17 +88,4 @@
 (defn -main []
   (println "Andrew's brainfuck interpreter Version 0.01"
            "Enter a brainfuck expression for evaluation:\n")
-
-  ;;horribly redundant. Fix later
-  (print ">>> ")
-  (flush)
-  (loop [input (read-line)]
-    (flush)
-    (print ">>> ")
-    (if input
-      (do
-        (parse-input input)
-        (exec-instruction)
-        (reset-instructions)
-        (flush)
-        (recur (read-line))))))
+  (parse-input (read-line)))
