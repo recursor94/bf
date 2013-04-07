@@ -17,34 +17,34 @@
 (defn plus
   "(+) Increments current memory cell"
   []
-  (reset! cells (assoc @cells @pointer (inc (get @cells @pointer))))) ;uses reset because swap! does not work for some reason
+  (inc (cells pointer)))
 
 (defn minus
   "(-) Decrements current memory cell"
   []
-  (reset! cells (assoc @cells @pointer (dec (get @cells @pointer)))))
+  (dec (cells pointer)))
 
 
 (defn +pointer
   "(>) increment the data pointer (move one cell to the right)"
   []
-  (swap! pointer inc))
+  (inc pointer))
 
 
 (defn -pointer
   "(<) Decrement the data pointer (move one cell to the left)"
   []
-  (swap! pointer dec))
+  (dec pointer))
 
 (defn input-character
   "(,) input a single character into the current memory cell"
   []
-  (reset! cells (assoc @cells @pointer (int (.read System/in)))))
+  (assoc (cells pointer) (int (.read System/in))))
 
 (defn output-character
   "(.) output the character in the current memory cell"
   []
-  (println (char (@cells @pointer)))
+  (print (char (cells pointer)))
   (flush))
 
 
