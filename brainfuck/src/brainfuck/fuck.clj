@@ -71,6 +71,13 @@
     \] #'end-loop
     true))
 
+(defn exec-instruction
+  "executes each brainfuck function in sequential order"
+  [instructions]
+  (doseq [instruct instructions]
+    (intruct)))
+
+
 ;;parser function for input should link translate and add-instruction
 (defn parse-input
   "takes input and sends each individual instruction to exec-instruction"
@@ -78,12 +85,6 @@
   (exec-instruction
    (map translate-instruction input)))
 
-
-(defn exec-instruction
-  "executes each brainfuck function in sequential order"
-  [instructions]
-  (doseq [instruct instructions]
-         (intruct)))
 
 (defn -main []
   (println "Andrew's brainfuck interpreter Version 0.01"
