@@ -85,13 +85,13 @@ index holds the current position of the interpreter in its execution."
   "run through a loop until current cell drops to zero"
   []
   (loop [loop-counter (@cells @pointer)
-         end-loop (find-end (@codemap :index))
+         end (find-end (@codemap :index))
          pos (@codemap :index)]
     (println "cell counter:" loop-counter
              "other:"  (@cells @pointer)
              "at 0:" (@cells @pointer)
              "also:" end-loop)
-    (exec-instruction end-loop)
+    (exec-instruction end)
     (when-not (= loop-counter 0)
       (recur (@cells @pointer) end-loop pos))))
 
@@ -140,7 +140,7 @@ index holds the current position of the interpreter in its execution."
                     "instruct" instruct
                     "minus one index:" (- end-index 2))
            (instruct))
-         (when-not (>= index (- end-index 1))
+         (when-not (>= index (dec end-index))
            (println "yeah you are")
            (inc-code-pos)
            (recur (inc index)))))
