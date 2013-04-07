@@ -47,28 +47,10 @@
   (print (char (cells pointer)))
   (flush))
 
-
-;;going to risk some mutual recursion now
 (defn begin-loop
-  "run through a loop until current cell drops to zero"
+  " [ run through a loop until current cell drops to zero"
   []
-  (loop [loop-counter (@cells @pointer)
-         codevec (@codemap :struct)
-         start-index (@codemap :index)
-         _ (inc-code-pos)
-         instruct (codevec start-index)]
-    (println "loopcounter: " loop-counter
-             "instruction:" instruct)
-    (if (= instruct #'end-loop)
-      (do   
-        (println true)
-        (instruct start-index))
-      (do (println false)
-        (instruct)))
-    (when-not (> loop-counter 0)
-      (inc-code-pos)
-      (println "incremented" (codevec (@codemap :index)))
-      (recur loop-counter codevec start-index nil (codevec (@codemap :index))))))
+  )
 
 (defn end-loop
   "] set code pointer to start of loop"
