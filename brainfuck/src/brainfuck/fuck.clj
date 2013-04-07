@@ -70,31 +70,12 @@ index holds the current position of the interpreter in its execution."
   []
   (swap! codemap update-in [:index] dec))
 
-(defn find-end
-  "helper function for begin-loop. Find the end of the loop"
-  [code-position]
 
-  (loop [pos code-position]
-    (let [instruct ((@codemap :struct) pos)]
-      (if (= instruct #'end-loop)
-        pos
-        ;else
-        (recur (inc pos))))))
+
 ;;going to risk some mutual recursion now
 (defn begin-loop
   "run through a loop until current cell drops to zero"
-  []
-  (loop [loop-counter (@cells @pointer)
-         end (find-end (@codemap :index))
-         pos (@codemap :index)]
-    (println "cell counter:" loop-counter
-             "other:"  (@cells @pointer)
-             "at 0:" (@cells @pointer)
-             "also:" end
-             "pos" pos)
-    (exec-instruction pos end)
-    (when-not (= loop-counter 0)
-      (recur (@cells @pointer) end pos))))
+  [start-index])
 
 (defn end-loop
   "] set code pointer to start of loop"
@@ -135,7 +116,7 @@ index holds the current position of the interpreter in its execution."
 
 (defn exec-instruction
   "executes each function in the codemap vector in sequential order"
-[]
+  []
    (doseq [instruct (@codemap :struct)]
      (instruct) ;;higher order functions ftw
      (inc-code-pos)))
