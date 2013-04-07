@@ -81,8 +81,12 @@
   [instructs] ;;maybe I don't even need the global vars at all?x
   (loop [instructs (vec instructs)
          code-pos 0
+         cells cells
          pointer pointer]
-    (println instructs)))
+    (println code-pos cells pointer)
+    (instructs code-pos)
+    (if (< code-pos (dec (count instructs)))
+      (recur instructs (inc code-pos) cells pointer))))
 
 
 ;;parser function for input should link translate and add-instruction
