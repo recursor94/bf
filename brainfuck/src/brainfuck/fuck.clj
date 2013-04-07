@@ -12,7 +12,7 @@
 
 ;(def ^{:dynamic true} cells  (vec (repeat 300 0))) ;a lazy vector to represent the brainfuck memory cell.
 
-(def ^{:dynamic true} pointer 0) ;;the pointer which points to the current active memory cell
+;;(def ^{:dynamic true} pointer 0) ;;the pointer which points to the current active memory cell
 
 (defn plus
   "(+) Increments current memory cell"
