@@ -17,13 +17,13 @@
 (defn plus
   "(+) Increments current memory cell"
   {:operation-type :cell}
-  [cell]
+  [cells pointer]
   (inc (cells pointer)))
 
 (defn minus
   "(-) Decrements current memory cell"
   {:operation-type :cell}
-  [cell]
+  [cells pointer]
   (dec (cells pointer)))
 
 
@@ -37,19 +37,19 @@
 (defn -pointer
   "(<) Decrement the data pointer (move one cell to the left)"
   {:operation-type :pointer}
-  []
-  (pointer))
+  [pointer]
+  (cells pointer))
 
 (defn input-character
   "(,) input a single character into the current memory cell"
   {:operation-type :io}
-  [cell pointer]
+  [cells pointer]
   (assoc (cells pointer) (int (.read System/in))))
 
 (defn output-character
   "(.) output the character in the current memory cell"
   {:operation-type :io}
-  [cell pointer]
+  [cells pointer]
   (print (char (cells pointer)))
   (flush))
 
@@ -82,16 +82,16 @@
 (defn exec-instruction
   "executes each brainfuck function in sequential order"
   [instruct]
+  (let [operation])
   (instruct))
 
 (defn exec-operations
   "executes the operations and keeps track of data pointer"
   [instructions] ;;maybe I don't even need the global vars at all?
-  (let [cells (vec (repeat 300 0))
-        code-pos 0
-        cell ()]
-    )
-  )
+  (let [cells ((atom vec (repeat 300 0)))
+            code-pos 0
+        cell ((atom cells code-pos))
+        operation (var instructions)]))
 
 
 ;;parser function for input should link translate and add-instruction
