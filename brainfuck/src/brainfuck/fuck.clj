@@ -17,20 +17,20 @@
 (defn plus
   "(+) Increments current memory cell"
   {:operation-type :cell}
-  []
+  [cell]
   (inc (cells pointer)))
 
 (defn minus
   "(-) Decrements current memory cell"
   {:operation-type :cell}
-  []
+  [cell]
   (dec (cells pointer)))
 
 
 (defn +pointer
   "(>) increment the data pointer (move one cell to the right)"
   {:operation-type :pointer}
-  []
+  [pointer]
   (inc pointer))
 
 
@@ -38,26 +38,30 @@
   "(<) Decrement the data pointer (move one cell to the left)"
   {:operation-type :pointer}
   []
-  (dec pointer))
+  (pointer))
 
 (defn input-character
   "(,) input a single character into the current memory cell"
-  []
+  {:operation-type :io}
+  [cell pointer]
   (assoc (cells pointer) (int (.read System/in))))
 
 (defn output-character
   "(.) output the character in the current memory cell"
-  []
+  {:operation-type :io}
+  [cell pointer]
   (print (char (cells pointer)))
   (flush))
 
 (defn begin-loop
   "[ run through a loop until current cell drops to zero"
-  []
+  {:operation-type :loop}
+  [index]
   )
 
 (defn end-loop
   "] set code pointer to start of loop"
+  {:operation-type :loop}
   [start-index]
   )
 
@@ -82,15 +86,8 @@
 
 (defn exec-operations
   "executes the operations and keeps track of data pointer"
-  [instructs] ;;maybe I don't even need the global vars at all?x
-  (loop [instructs (vec instructs)
-         code-pos 0
-         pointer pointer]
-    (binding [cells cells]
-      (println code-pos cells pointer)
-      (instructs code-pos)
-      (if (< code-pos (dec (count instructs)))
-        (recur instructs (inc code-pos) cells pointer)))))
+  [instructs] ;;maybe I don't even need the global vars at all?
+  (let [cells (vec)]))
 
 
 ;;parser function for input should link translate and add-instruction
