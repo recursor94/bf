@@ -10,7 +10,7 @@
 
 (declare end-loop exec-instruction)
 
-(def ^{:dynamic true} cells  (vec (repeat 300 0))) ;a lazy vector to represent the brainfuck memory cell.
+;(def ^{:dynamic true} cells  (vec (repeat 300 0))) ;a lazy vector to represent the brainfuck memory cell.
 
 (def ^{:dynamic true} pointer 0) ;;the pointer which points to the current active memory cell
 
@@ -87,6 +87,10 @@
 (defn exec-operations
   "executes the operations and keeps track of data pointer"
   [instructions] ;;maybe I don't even need the global vars at all?
+  (let [cells (vec (repeat 300 0))
+        code-pos 0
+        cell ()]
+    )
   )
 
 
