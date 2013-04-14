@@ -26,9 +26,7 @@
   "(+) Increments current memory cell"
   {:operation-type :cell}
   [state pointer]
-  (update-state
-   state inc :cells pointer))
-
+  (update-state))
 (defn minus
   "(-) Decrements current memory cell"
   {:operation-type :cell}
