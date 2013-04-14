@@ -17,6 +17,7 @@
             :pointer 0
             :cp 0})
 
+(defmacro update-state [])
 (defn plus
   "(+) Increments current memory cell"
   {:operation-type :cell}
