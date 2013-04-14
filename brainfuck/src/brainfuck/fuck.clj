@@ -13,7 +13,7 @@
 ;(def ^{:dynamic true} cells  (vec (repeat 300 0))) ;a lazy vector to represent the brainfuck memory cell.
 
 ;;(def ^{:dynamic true} pointer 0) ;;the pointer which points to the current active memory cell
-
+(defrecord memory [ptr cells])
 (defn plus
   "(+) Increments current memory cell"
   {:operation-type :cell}
@@ -38,7 +38,7 @@
   "(<) Decrement the data pointer (move one cell to the left)"
   {:operation-type :pointer}
   [pointer]
-  (cells pointer))
+  (dec pointer))
 
 (defn input-character
   "(,) input a single character into the current memory cell"
@@ -82,16 +82,11 @@
 (defn exec-instruction
   "executes each brainfuck function in sequential order"
   [instruct]
-  (let [operation])
   (instruct))
 
 (defn exec-operations
   "executes the operations and keeps track of data pointer"
-  [instructions] ;;maybe I don't even need the global vars at all?
-  (let [cells ((atom vec (repeat 300 0)))
-            code-pos 0
-        cell ((atom cells code-pos))
-        operation (var instructions)]))
+  [instructions])
 
 
 ;;parser function for input should link translate and add-instruction
