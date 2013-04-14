@@ -18,9 +18,11 @@
             :codepointer 0
             :codevec []})
 
+(defmacro operation-type? [operation]
+  `(:operation-type (meta ~operation)))
+
 (defmacro update-state [state operation & keys]
   "Chooses correct operation on the map of state"
-  `(update-in ~state [~@keys] ~operation))
 
 (defn plus 
   "(+) Increments current memory cell"
