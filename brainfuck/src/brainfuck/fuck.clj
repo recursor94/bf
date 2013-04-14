@@ -15,10 +15,13 @@
 ;;(def ^{:dynamic true} pointer 0) ;;the pointer which points to the current active memory cell
 (def state-map {:cells (vec (repeat 300 0))
             :pointer 0
-            :cp 0})
+            :cp 0
+            :codevec []})
 
 (defmacro update-state [state key operation]
+  "Chooses correct operation on the map of state"
   `(update-in ~state [~key] ~operation))
+
 (defn plus 
   "(+) Increments current memory cell"
   {:operation-type :cell}
