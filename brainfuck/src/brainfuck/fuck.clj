@@ -13,16 +13,18 @@
 ;(def ^{:dynamic true} cells  (vec (repeat 300 0))) ;a lazy vector to represent the brainfuck memory cell.
 
 ;;(def ^{:dynamic true} pointer 0) ;;the pointer which points to the current active memory cell
-(def state {:cells (vec (repeat 300 0))
+(def state-map {:cells (vec (repeat 300 0))
             :pointer 0
             :cp 0})
 
-(defmacro update-state [])
-(defn plus
+(defmacro update-state [state key operation]
+  `(update-in ~state [~key] ~operation))
+(defn plus 
   "(+) Increments current memory cell"
   {:operation-type :cell}
-  [cells pointer]
-  (inc (cells pointer)))
+  [state pointer]
+  (update-state
+   state pointer inc))
 
 (defn minus
   "(-) Decrements current memory cell"
